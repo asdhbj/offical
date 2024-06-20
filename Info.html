@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            box-sizing: border-box;
+            /* Add this line */
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 1000px;
+            max-width: 100%;
+            /* Add this line */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+            /* Add this line */
+        }
+
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .product {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .product input {
+            margin-right: 10px;
+            padding: 5px;
+            flex: 1;
+        }
+
+        .product button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .deleteBtn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .deleteBtn:hover {
+            background-color: #e53935;
+        }
+
+        .deleteLineBtn {
+            background-color: #ff5722;
+            color: white;
+        }
+
+        .deleteLineBtn:hover {
+            background-color: #f4511e;
+        }
+
+        #addProductBtn,
+        #saveToFirebaseBtn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #addProductBtn:hover,
+        #saveToFirebaseBtn:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <!-- Add the Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+    <script src="js.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Product Manager</h1>
+        <div id="productList">
+            <!-- Product Line Template -->
+            <div class="product">
+                <span class="productNumber">1</span>
+                <input type="text" placeholder="Name" class="productName" id="N1">
+                <input type="text" placeholder="Img URL" class="productImg" id="I1">
+                <input type="text" placeholder="Description" class="productDescription" id="D1">
+                <input type="number" placeholder="Price" class="productPrice" id="P1">
+                <button class="deleteBtn">Delete</button>
+                <button class="deleteLineBtn">Delete Cocktail</button>
+            </div>
+            <div class="product">
+                <span class="productNumber">2</span>
+                <input type="text" placeholder="Name" class="productName" id="N2">
+                <input type="text" placeholder="Img URL" class="productImg" id="I2">
+                <input type="text" placeholder="Description" class="productDescription" id="D2">
+                <input type="number" placeholder="Price" class="productPrice" id="P2">
+                <button class="deleteBtn">Delete</button>
+                <button class="deleteLineBtn">Delete Cocktail</button>
+            </div>
+            <div class="product">
+                <span class="productNumber">3</span>
+                <input type="text" placeholder="Name" class="productName" id="N3">
+                <input type="text" placeholder="Img URL" class="productImg" id="I3">
+                <input type="text" placeholder="Description" class="productDescription" id="D3">
+                <input type="number" placeholder="Price" class="productPrice" id="P3">
+                <button class="deleteBtn">Delete</button>
+                <button class="deleteLineBtn">Delete Cocktail</button>
+            </div>
+            <div class="product">
+                <span class="productNumber">4</span>
+                <input type="text" placeholder="Name" class="productName" id="N4">
+                <input type="text" placeholder="Img URL" class="productImg" id="I4">
+                <input type="text" placeholder="Description" class="productDescription" id="D4">
+                <input type="number" placeholder="Price" class="productPrice" id="P4">
+                <button class="deleteBtn">Delete</button>
+                <button class="deleteLineBtn">Delete Cocktail</button>
+            </div>
+            <div class="product">
+                <span class="productNumber">5</span>
+                <input type="text" placeholder="Name" class="productName" id="N5">
+                <input type="text" placeholder="Img URL" class="productImg" id="I5">
+                <input type="text" placeholder="Description" class="productDescription" id="D5">
+                <input type="number" placeholder="Price" class="productPrice" id="P5">
+                <button class="deleteBtn">Delete</button>
+                <button class="deleteLineBtn">Delete Cocktail</button>
+            </div>
+            <div class="product">
+                <span class="productNumber">6</span>
+                <input type="text" placeholder="Name" class="productName" id="N6">
+                <input type="text" placeholder="Img URL" class="productImg" id="I6">
+                <input type="text" placeholder="Description" class="productDescription" id="D6">
+                <input type="number" placeholder="Price" class="productPrice" id="P6">
+                <button class="deleteBtn">Delete</button>
+                <button class="deleteLineBtn">Delete Cocktail</button>
+            </div>
+        </div>
+        <button id="addProductBtn">Add Product</button>
+        <button id="saveToFirebaseBtn">Save to Firebase</button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const productList = document.getElementById('productList');
+
+            document.getElementById('addProductBtn').addEventListener('click', function () {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product';
+
+                const productNumber = document.createElement('span');
+                productNumber.className = 'productNumber';
+                productNumber.textContent = productList.children.length + 1;
+                productDiv.appendChild(productNumber);
+
+                const lineNumber = productList.children.length + 1;
+
+                const productName = document.createElement('input');
+                productName.type = 'text';
+                productName.placeholder = 'Name';
+                productName.className = 'productName';
+                productName.id = 'N' + lineNumber;
+                productDiv.appendChild(productName);
+
+                const productImg = document.createElement('input');
+                productImg.type = 'text';
+                productImg.placeholder = 'Img URL';
+                productImg.className = 'productImg';
+                productImg.id = 'I' + lineNumber;
+                productDiv.appendChild(productImg);
+
+                const productDescription = document.createElement('input');
+                productDescription.type = 'text';
+                productDescription.placeholder = 'Description';
+                productDescription.className = 'productDescription';
+                productDescription.id = 'D' + lineNumber;
+                productDiv.appendChild(productDescription);
+
+                const productPrice = document.createElement('input');
+                productPrice.type = 'number';
+                productPrice.placeholder = 'Price';
+                productPrice.className = 'productPrice';
+                productPrice.id = 'P' + lineNumber;
+                productDiv.appendChild(productPrice);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'deleteBtn';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', function () {
+                    productName.value = '';
+                    productImg.value = '';
+                    productDescription.value = '';
+                    productPrice.value = '';
+                });
+                productDiv.appendChild(deleteBtn);
+
+                const deleteLineBtn = document.createElement('button');
+                deleteLineBtn.className = 'deleteLineBtn';
+                deleteLineBtn.textContent = 'Delete Cocktail';
+                deleteLineBtn.addEventListener('click', function () {
+                    productList.removeChild(productDiv);
+                    updateProductNumbers();
+                });
+                productDiv.appendChild(deleteLineBtn);
+
+                productList.appendChild(productDiv);
+                updateProductNumbers();
+            });
+
+            function updateProductNumbers() {
+                const products = productList.querySelectorAll('.product');
+                products.forEach((product, index) => {
+                    const lineNumber = index + 1;
+                    product.querySelector('.productNumber').textContent = lineNumber;
+                    product.querySelector('.productName').id = 'N' + lineNumber;
+                    product.querySelector('.productImg').id = 'I' + lineNumber;
+                    product.querySelector('.productDescription').id = 'D' + lineNumber;
+                    product.querySelector('.productPrice').id = 'P' + lineNumber;
+                });
+            }
+
+            // Adding clear functionality to initial products
+            const initialDeleteButtons = document.querySelectorAll('.deleteBtn');
+            initialDeleteButtons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    const productDiv = event.target.parentNode;
+                    const productName = productDiv.querySelector('.productName');
+                    const productImg = productDiv.querySelector('.productImg');
+                    const productDescription = productDiv.querySelector('.productDescription');
+                    const productPrice = productDiv.querySelector('.productPrice');
+
+                    productName.value = '';
+                    productImg.value = '';
+                    productDescription.value = '';
+                    productPrice.value = '';
+                });
+            });
+
+            // Adding delete line functionality to initial products
+            const initialDeleteLineButtons = document.querySelectorAll('.deleteLineBtn');
+            initialDeleteLineButtons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    const productDiv = event.target.parentNode;
+                    productList.removeChild(productDiv);
+                    updateProductNumbers();
+                });
+            });
+
+            document.getElementById('saveToFirebaseBtn').addEventListener('click', function () {
+                const products = productList.querySelectorAll('.product');
+                const productArray = [];
+
+                products.forEach((product, index) => {
+                    const lineNumber = index + 1;
+                    const name = product.querySelector('.productName').value;
+                    const img = product.querySelector('.productImg').value;
+                    const description = product.querySelector('.productDescription').value;
+                    const price = parseFloat(product.querySelector('.productPrice').value); // Convert to number
+
+                    if (name || img || description || price) {
+                        productArray.push({
+                            id: lineNumber,
+                            name: name,
+                            img: img,
+                            description: description,
+                            price: price
+                        });
+                    }
+                });
+
+                const productCount = productArray.length;
+
+                database.ref('products').set(productArray, function (error) {
+                    if (error) {
+                        alert('Error saving data: ' + error.message);
+                    } else {
+                        alert('Data saved successfully.');
+                    }
+                });
+
+                database.ref('productCount').set(productCount, function (error) {
+                    if (error) {
+                        alert('Error saving product count: ' + error.message);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

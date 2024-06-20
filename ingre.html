@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Ingredient</title>
+    <link rel="stylesheet" href="css.css">
+    <style>
+        /* Style the popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #888;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background-color: white;
+            z-index: 1000;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80%;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        /* Style the close button */
+        .close-btn {
+            float: right;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* Style the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-small {
+            font-size: 12px;
+            padding: 2px 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container container">
+            <input type="checkbox" id="nav-checkbox">
+            <div class="hamburger-lines">
+                <span class="line line1"></span>
+                <span class="line line2"></span>
+                <span class="line line3"></span>
+            </div>
+            <ul class="menu-items">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#food">Category</a></li>
+                <li><a href="#food-menu">Menu</a></li>
+                <li><a href="#testimonials">Review</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <h1 class="logo">HUST / WSR LAB</h1>
+        </div>
+    </nav>
+
+    <section class="showcase-area" id="showcase">
+        <div class="showcase-container">
+            <h1 class="main-title" id="home">EXCELLENT COCKTAILS</h1>
+            <p>The more you drink, the better it gets.</p>
+            <a href="#food-menu" class="btn btn-primary">Menu</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-wrapper container">
+            <div class="about-text">
+                <p class="small">About Us</p>
+                <h2>Automatic cocktail machine </h2>
+                <p>
+                    A product that promises to redefine your bartending experiences.
+                    This could be your ultimate solution when it comes to making drinks
+                    for a small party or operating a small lounge.
+                </p>
+            </div>
+            <div class="about-img">
+                <img src="https://www.allrecipes.com/thmb/mB5FAONsvm2iLOBJ4I5vfL49ONI=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/102561327_3-Cocktails-on-Bar_Photo-by-Meredith-4cbb7cc1a5d3451abf298d8fef7909b9.jpg" alt="food" />
+            </div>
+        </div>
+    </section>
+
+    <section id="food">
+        <h2>Add Ingredient</h2>
+        <div class="food-type vegetable">
+            <div class="img-container">
+                <img src="https://images.food52.com/zaX70nqO508rQYuL_nHDNyE5G4E=/1008x672/filters:format(webp)/c81a3734-2f0c-4c75-b057-544f2a690f04--2021-0603_martini_3x2_julia-gartland_316.jpg" alt="error" />
+                <div class="img-content">
+                    <h3>ADD INGREDIENTS</h3>
+                    <button class="btn btn-primary" onclick="showPopup()">add here</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="popup" class="popup">
+            <span class="close-btn" onclick="hidePopup()">&times;</span>
+            <table>
+                <thead>
+                    <tr>
+                        <th>All ingredients</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Table rows will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+            <button class="btn btn-primary" onclick="sendData()">Send</button>
+            <button class="btn btn-primary" onclick="addMoreIngredients()">Add More</button>
+        </div>
+    </section>
+
+    <section id="food-menu">
+        <h2 class="food-menu-heading">Drinks Menu</h2>
+        <div class="food-menu-container container">
+            <div class="food-menu-item">
+                <div class="food-img">
+                    <img src="https://images.immediate.co.uk/production/volatile/sites/30/2020/08/mojito-cocktails-150961e.jpg?quality=90&webp=true&resize=430,390" alt="">
+                </div>
+                <div class="food-description">
+                    <h2 class="food-title">Ingredient 1</h2>
+                    <p>Select an ingredient</p>
+                    <select id="B1"></select>
+                    <input type="number" name="" id="l1" >
+                </div>
+            </div>
+            <div class="food-menu-item">
+                <div class="food-img">
+                    <img src="https://images.immediate.co.uk/production/volatile/sites/30/2013/11/pina-colada-c68aca7.jpg?quality=90&webp=true&resize=375,341" alt="error">
+                </div>
+                <div class="food-description">
+                    <h2 class="food-title">Ingredient 2</h2>
+                    <p>Select an ingredient</p>
+                    <select id="B2"></select>
+                    <input type="number" name="" id="l2" >
+                </div>
+            </div>
+            <div class="food-menu-item">
+                <div class="food-img">
+                    <img src="https://images.immediate.co.uk/production/volatile/sites/30/2020/08/long_island_iced_tea_cocktail-c97bd56-scaled.jpg?quality=90&webp=true&resize=375,341" alt="">
+                </div>
+                <div class="food-description">
+                    <h2 class="food-title">Ingredient 3</h2>
+                    <p>Select an ingredient</p>
+                    <select id="B3"></select>
+                    <input type="number" name="" id="l3" >
+                </div>
+            </div>
+            <div class="food-menu-item">
+                <div class="food-img">
+                    <img src="https://images.immediate.co.uk/production/volatile/sites/30/2023/04/Strawberry-Marg-c985252.jpg?quality=90&webp=true&resize=375,341" alt="">
+                </div>
+                <div class="food-description">
+                    <h2 class="food-title">Ingredient 4</h2>
+                    <p>Select an ingredient</p>
+                    <select id="B4"></select>
+                    <input type="number" name="" id="l4" >
+                </div>
+            </div>
+            <div class="food-menu-item">
+                <div class="food-img">
+                    <img src="https://images.immediate.co.uk/production/volatile/sites/30/2020/08/hurricane-62b2c43.jpg?quality=90&webp=true&resize=375,341" alt="">
+                </div>
+                <div class="food-description">
+                    <h2 class="food-title">Ingredient 5</h2>
+                    <p>Select an ingredient</p>
+                    <select id="B5"></select>
+                    <input type="number" name="" id="l5" >
+                </div>
+            </div>
+            <div class="food-menu-item">
+                <div class="food-img">
+                    <img src="https://images.immediate.co.uk/production/volatile/sites/30/2020/08/aperol-spritz-0e58f7b.jpg?quality=90&webp=true&resize=375,341" alt="">
+                </div>
+                <div class="food-description">
+                    <h2 class="food-title">Ingredient 6</h2>
+                    <p>Select an ingredient</p>
+                    <select id="B6"></select>
+                    <input type="number" name="" id="l6" >
+                </div>
+            </div>
+            <button type="button" id="setIn" class="btn btn1-primary">Submit</button>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-container container">
+            <div class="contact-img">
+                <img src="https://i.postimg.cc/1XvYM67V/restraunt2.jpg" alt="">
+            </div>
+            <div class="form-container">
+                <h2>Contact Us</h2>
+                <input type="text" placeholder="Your Name">
+                <input type="email" placeholder="E-Mail">
+                <textarea cols="30" rows="6" placeholder="Type Your Message"></textarea>
+                <a href="#" class="btn btn-primary">Submit</a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <h2>Cocktail machine &copy; all rights reserved</h2>
+    </footer>
+
+    <!-- JS Code for smooth scrolling -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+    <script src="js.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Add smooth scrolling to all links
+            $("a").on("click", function (event) {
+                // Make sure this.hash has a value before overriding default behavior
+                if (this.hash !== "") {
+                    // Prevent default anchor click behavior
+                    event.preventDefault();
+                    // Store hash
+                    var hash = this.hash;
+                    // Using jQuery's animate() method to add smooth page scroll
+                    // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                    $("html, body").animate(
+                        {
+                            scrollTop: $(hash).offset().top,
+                        },
+                        800,
+                        function () {
+                            // Add hash (#) to URL when done scrolling (default click behavior)
+                            window.location.hash = hash;
+                        }
+                    );
+                } // End if
+            });
+        });
+
+        let currentIngredientCount = 0;
+
+        function showPopup() {
+            const popup = document.getElementById('popup');
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = ''; // Clear any existing rows
+
+            database.ref('Ingr').once('value', function(snapshot) {
+                const ingredients = snapshot.val();
+                if (ingredients) {
+                    const keys = Object.keys(ingredients);
+                    currentIngredientCount = keys.length;
+                    keys.forEach((key, index) => {
+                        addIngredientLine(index + 1, ingredients[key]);
+                    });
+                } else {
+                    currentIngredientCount = 0;
+                }
+
+                popup.style.display = 'block';
+            });
+        }
+
+        function hidePopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'none';
+        }
+
+        function addIngredientLine(index, value = '') {
+            const tableBody = document.getElementById('table-body');
+            const row = document.createElement('tr');
+            row.id = 'row' + index;
+            const cell = document.createElement('td');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.id = 'ingredient' + index;
+            input.placeholder = 'Ingredient ' + index;
+            input.value = value;
+
+            const buttonGroup = document.createElement('div');
+            buttonGroup.classList.add('button-group');
+
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('btn-small');
+            deleteButton.textContent = 'Delete Ingredient';
+            deleteButton.onclick = function() { deleteIngredientLine(index); };
+
+            const clearButton = document.createElement('button');
+            clearButton.classList.add('btn-small');
+            clearButton.textContent = 'Clear Name';
+            clearButton.onclick = function() { clearIngredientName(index); };
+
+            buttonGroup.appendChild(deleteButton);
+            buttonGroup.appendChild(clearButton);
+
+            cell.appendChild(input);
+            cell.appendChild(buttonGroup);
+            row.appendChild(cell);
+            tableBody.appendChild(row);
+        }
+
+        function deleteIngredientLine(index) {
+            const row = document.getElementById('row' + index);
+            row.remove();
+        }
+
+        function clearIngredientName(index) {
+            const input = document.getElementById('ingredient' + index);
+            input.value = '';
+        }
+
+        function addMoreIngredients() {
+            if (currentIngredientCount < 20) {
+                currentIngredientCount++;
+                addIngredientLine(currentIngredientCount);
+            }
+        }
+
+        function sendData() {
+            const ingredients = {};
+            for (let i = 1; i <= currentIngredientCount; i++) {
+                const ingredient = document.getElementById('ingredient' + i)?.value;
+                if (ingredient) {
+                    ingredients['ingredient' + i] = ingredient;
+                }
+            }
+            database.ref('Ingr').set(ingredients, function(error) {
+                if (error) {
+                    alert('Data could not be saved.' + error);
+                } else {
+                    alert('Data sent to the database!');
+                    hidePopup();
+                    populateDropdownsFromDatabase();
+                }
+            });
+        }
+
+        function populateDropdownsFromDatabase() {
+            const ingredients = [];
+
+            for (let i = 1; i <= 20; i++) {
+                const ingredientRef = database.ref('Ingr/ingredient' + i);
+                ingredientRef.once('value', function(snapshot) {
+                    if (snapshot.val()) {
+                        ingredients.push(snapshot.val());
+                    }
+
+                    if (i === 20) { // When the last ingredient is read, populate dropdowns
+                        for (let j = 1; j <= 6; j++) {
+                            const select = document.getElementById('B' + j);
+                            select.innerHTML = ''; // Clear existing options
+
+                            ingredients.forEach(ingredient => {
+                                const option = document.createElement('option');
+                                option.value = ingredient;
+                                option.textContent = ingredient;
+                                select.appendChild(option);
+                            });
+                        }
+                    }
+                });
+            }
+        }
+
+        // Populate dropdowns on page load
+        window.onload = function() {
+            populateDropdownsFromDatabase();
+        };
+    </script>
+</body>
+</html>

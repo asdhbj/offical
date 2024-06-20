@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="receipt.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .receipt-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .item-name {
+            text-align: left;
+            width: 70%;
+        }
+
+        .item-price {
+            text-align: right;
+            width: 30%;
+        }
+    </style>
+</head>
+
+<body>
+    <table class="body-wrap">
+        <tbody>
+            <tr>
+                <td></td>
+                <td class="container" width="600">
+                    <div class="content">
+                        <table class="main" width="100%" cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td class="content-wrap aligncenter">
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="content-block">
+                                                        <h2>Thanks for using our service</h2>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content-block">
+                                                        <table class="invoice">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Receipt<br>Invoice #12345<br>
+                                                                        <div id="current-time"></div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <table class="invoice-items" cellpadding="0"
+                                                                            cellspacing="0">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <div id="receipt">vnd</div>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="button">
+                                                        <a type="button" id="minh">Pay</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="button">
+                                                        <a href="#" onclick="location.href = 'mainmenu.html';">Back to
+                                                            menu</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="content-block">
+                                                        HA NOI UNIVERSITY OF SCIENCE AND TECHNOLOGY
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="footer">
+                            <table width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td class="aligncenter content-block">Questions? Email <a
+                                                href="mailto:">mdo365852@gmail.com</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        var curDate = new Date();
+
+        // Ngày hiện tại
+        var curDay = curDate.getDate();
+
+        // Tháng hiện tại
+        var curMonth = curDate.getMonth() + 1;
+
+        // Năm hiện tại
+        var curYear = curDate.getFullYear();
+
+        // Gán vào thẻ HTML
+        document.getElementById('current-time').innerHTML = curDay + "/" + curMonth + "/" + curYear;
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+    <script src="js.js"></script>
+    <script>
+        const db = firebase.database();
+
+        // Function to read data from Firebase and display receipt
+        function displayReceipt() {
+            const receiptDiv = document.getElementById('receipt');
+            receiptDiv.innerHTML = ''; // Clear previous content
+
+            // Read productCount from Firebase
+            db.ref('/productCount').once('value', snapshot => {
+                const productCount = snapshot.val();
+
+                // Read prices and names from Firebase
+                db.ref('/products').once('value', snapshot => {
+                    const products = snapshot.val();
+
+                    // Read receipt data from Firebase
+                    db.ref('/receipt').once('value', snapshot => {
+                        const receiptData = snapshot.val();
+                        const receiptItems = [];
+                        let total = 0;
+
+                        for (let i = 1; i <= productCount; i++) {
+                            const quantity = receiptData[`c${i}`];
+                            if (quantity > 0) {
+                                const product = products[i - 1];
+                                const itemTotal = quantity * product.price;
+                                total += itemTotal;
+
+                                receiptItems.push(`- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - `);
+                                receiptItems.push(`<div class="receipt-item"><div class="item-name">${product.name}:</div><div class="item-price">${itemTotal} VND</div></div>`);
+                            }
+                        }
+
+                        if (receiptItems.length > 0) {
+                            receiptItems.push(`-------------------------------------------------------------------------------`);
+                            receiptItems.push(`<div class="receipt-item"><div class="item-name">Total:</div><div class="item-price">${total} VND</div></div>`);
+                        } else {
+                            receiptItems.push('<p>No items to display</p>');
+                        }
+
+                        // Display receipt items
+                        const receiptHTML = '<h2>Receipt</h2>' + receiptItems.join('<br>');
+                        receiptDiv.innerHTML = receiptHTML;
+                    });
+                });
+            });
+        }
+
+        // Call the function to display the receipt when the page loads
+        displayReceipt();
+
+        document.getElementById('minh').style.cursor = 'pointer';
+        document.getElementById('minh').addEventListener('click', function() {
+            const promises = [];
+            for (let i = 1; i <= 6; i++) {
+                promises.push(db.ref(`Ing/l${i}`).once('value'));
+            }
+
+            Promise.all(promises).then(snapshots => {
+                const ingredients = snapshots.map(snapshot => snapshot.val());
+                if (ingredients.some(ingredient => ingredient < 50)) {
+                    alert('Insufficient ingredient');
+                    return;
+                }
+
+                // Proceed with original operations if all ingredient values are >= 50
+                const updates = {};
+                const receiptUpdates = {};
+                const productQuantities = [];
+
+                const inputs = document.querySelectorAll('input[type="number"]');
+                inputs.forEach((input, index) => {
+                    const value = parseInt(input.value, 10); // Convert input value to number
+                    if (!isNaN(value)) {
+                        updates[`c${index + 1}`] = value;
+                        receiptUpdates[`receipt/c${index + 1}`] = value;
+                        productQuantities.push(value);
+                    } else {
+                        updates[`c${index + 1}`] = 0; // Default to 0 if the value is not a number
+                        receiptUpdates[`receipt/c${index + 1}`] = 0;
+                        productQuantities.push(0);
+                    }
+                });
+
+                return db.ref().update(updates).then(() => {
+                    return db.ref().update(receiptUpdates);
+                }).then(() => {
+                    // Set the value of 'c' to 1
+                    return db.ref().update({ 'c': 1 });
+                }).then(() => {
+                    // Read the value of 't' from the database
+                    return db.ref('t').once('value');
+                }).then(snapshot => {
+                    const t = snapshot.val();
+                    // Redirect based on the value of 't'
+                    if (t === 0) {
+                        window.location.href = 'payment.html';
+                    } else if (t === 1) {
+                        window.location.href = 'setScreen.html';
+                    } else {
+                        window.location.href = 'receipt.html'; // Default redirect if t is neither 0 nor 1
+                    }
+
+                    /* // Update the l1, l2, ..., l6 values in the database
+                    const productCountPromise = db.ref('/productCount').once('value');
+                    productCountPromise.then(snapshot => {
+                        const productCount = snapshot.val();
+                        const ingredientUpdates = {};
+                        for (let i = 1; i <= 6; i++) {
+                            let newValue = ingredients[i - 1];
+                            for (let j = 1; j <= productCount; j++) {
+                                const quantity = productQuantities[(i - 1) * productCount + j - 1];
+                                newValue -= quantity;
+                            }
+                            ingredientUpdates[`Ing/l${i}`] = newValue;
+                        }
+                        return db.ref().update(ingredientUpdates);
+                    }); */
+                });
+            }).catch(error => {
+                console.error("Error updating database: ", error);
+            });
+        });
+    </script>
+</body>
+
+</html>

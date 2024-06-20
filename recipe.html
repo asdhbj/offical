@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .productBox {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+
+        .productDetails {
+            flex-grow: 1;
+        }
+
+        .productBox img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 20px;
+        }
+
+        .productBox h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .productBox p {
+            margin: 5px 0 0;
+        }
+
+        .recipeButton {
+            margin-left: 20px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .recipeButton:hover {
+            background-color: #0056b3;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .recipeLine {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .recipeLine span {
+            flex: 1;
+        }
+
+        .recipeLine input {
+            flex: 1;
+            padding: 5px;
+            margin-left: 10px;
+        }
+
+        .sendButton {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .sendButton:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .productBox {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .productBox img {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .recipeButton {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+    <script src="js.js"></script>
+    <script>
+        // Your Firebase configuration
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const productDisplay = document.getElementById('productDisplay');
+            const recipeModal = document.getElementById('recipeModal');
+            const recipeForm = document.getElementById('recipeForm');
+            const sendRecipeBtn = document.getElementById('sendRecipeBtn');
+            let currentProductIndex = null;
+
+            function fetchProducts() {
+                database.ref('products').once('value', function (snapshot) {
+                    const products = snapshot.val();
+                    productDisplay.innerHTML = ''; // Clear existing products
+
+                    if (products) {
+                        products.forEach((product, index) => {
+                            const productBox = document.createElement('div');
+                            productBox.className = 'productBox';
+
+                            const productDetails = document.createElement('div');
+                            productDetails.className = 'productDetails';
+
+                            const productName = document.createElement('h3');
+                            productName.textContent = product.name;
+                            productDetails.appendChild(productName);
+
+                            const productDescription = document.createElement('p');
+                            productDescription.textContent = product.description;
+                            productDetails.appendChild(productDescription);
+
+                            productBox.appendChild(productDetails);
+
+                            if (product.img) {
+                                const productImg = document.createElement('img');
+                                productImg.src = product.img;
+                                productBox.appendChild(productImg);
+                            }
+
+                            const recipeButton = document.createElement('button');
+                            recipeButton.className = 'recipeButton';
+                            recipeButton.textContent = 'Setup Recipe';
+                            recipeButton.addEventListener('click', function () {
+                                currentProductIndex = index;
+                                openRecipeModal(index);
+                            });
+                            productBox.appendChild(recipeButton);
+
+                            productDisplay.appendChild(productBox);
+                        });
+                    }
+                });
+            }
+
+            function openRecipeModal(productIndex) {
+                recipeForm.innerHTML = ''; // Clear existing recipe lines
+                const ingredientKeys = [];
+                for (let i = 1; i <= 6; i++) {
+                    const ingredientKey = `Ing/B${i}`;
+                    ingredientKeys.push(ingredientKey);
+                }
+
+                Promise.all(ingredientKeys.map(key => database.ref(key).once('value')))
+                    .then(snapshots => {
+                        snapshots.forEach((snapshot, i) => {
+                            const recipeLine = document.createElement('div');
+                            recipeLine.className = 'recipeLine';
+
+                            const ingredientLabel = document.createElement('span');
+                            ingredientLabel.textContent = `${snapshot.val() || ''}`; // Display B1, B2, etc.
+                            recipeLine.appendChild(ingredientLabel);
+
+                            const ingredientInput = document.createElement('input');
+                            ingredientInput.type = 'number';
+                            ingredientInput.id = `ingredientB${i + 1}`;
+                            ingredientInput.value = 0;
+                            recipeLine.appendChild(ingredientInput);
+
+                            recipeForm.appendChild(recipeLine);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching recipe data:', error);
+                    });
+
+                recipeModal.style.display = 'block';
+            }
+
+            sendRecipeBtn.addEventListener('click', function () {
+                const recipeData = {};
+                for (let i = 1; i <= 6; i++) {
+                    const value = document.getElementById(`ingredientB${i}`).value;
+                    recipeData[`b${i}${currentProductIndex}`] = parseInt(value, 10);
+                }
+
+                if (currentProductIndex !== null) {
+                    database.ref(`products/${currentProductIndex}/recipe`).set(recipeData, function (error) {
+                        if (error) {
+                            alert('Error saving recipe: ' + error.message);
+                        } else {
+                            // Send integer value 1 to address 't' in the database
+                            database.ref('t').set(1, function (error) {
+                                if (error) {
+                                    alert('Error sending value to address t: ' + error.message);
+                                } else {
+                                    alert('Recipe saved successfully.');
+                                    recipeModal.style.display = 'none';
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+            document.querySelector('.close').addEventListener('click', function () {
+                recipeModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function (event) {
+                if (event.target === recipeModal) {
+                    recipeModal.style.display = 'none';
+                }
+            });
+
+            fetchProducts();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Products</h1>
+        <div id="productDisplay"></div>
+    </div>
+
+    <!-- Recipe Modal -->
+    <div id="recipeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Setup Recipe</h2>
+            <div id="recipeForm"></div>
+            <button id="sendRecipeBtn" class="sendButton">Send to Firebase</button>
+        </div>
+    </div>
+</body>
+
+</html>

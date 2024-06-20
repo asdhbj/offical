@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setup Main</title>
+
+  <link rel="stylesheet" href="css.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .navbar {
+      background-color: #333;
+      overflow: hidden;
+    }
+
+    .navbar-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .navbar input[type="checkbox"] {
+      display: none;
+    }
+
+    .hamburger-lines {
+      display: none;
+    }
+
+    .menu-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+    }
+
+    .menu-items li {
+      margin-left: 20px;
+    }
+
+    .menu-items a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      display: block;
+    }
+
+    .menu-items a:hover {
+      background-color: #575757;
+    }
+
+    .logo {
+      color: white;
+      font-size: 1.5em;
+      margin: 0;
+    }
+
+    .showcase-area {
+      background: url('https://www.allrecipes.com/thmb/mB5FAONsvm2iLOBJ4I5vfL49ONI=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/102561327_3-Cocktails-on-Bar_Photo-by-Meredith-4cbb7cc1a5d3451abf298d8fef7909b9.jpg') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .main-title {
+      font-size: 2.5em;
+    }
+
+    .btn-primary {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .about-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .about-text {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .about-img {
+      flex: 1;
+      padding: 20px;
+    }
+
+    .about-img img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    .food-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .food-type {
+      flex: 1 1 30%;
+      margin: 20px;
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .img-container {
+      position: relative;
+    }
+
+    .img-container img {
+      width: 100%;
+      height: auto;
+    }
+
+    .img-content {
+      position: absolute;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      color: white;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      width: 100%;
+    }
+
+    /* Media Queries */
+    @media (max-width: 1024px) {
+      .menu-items {
+        flex-direction: column;
+        display: none;
+      }
+
+      .navbar input[type="checkbox"]:checked~.menu-items {
+        display: flex;
+      }
+
+      .hamburger-lines {
+        display: block;
+        cursor: pointer;
+      }
+
+      .hamburger-lines .line {
+        width: 30px;
+        height: 3px;
+        background-color: white;
+        margin: 6px 0;
+        transition: 0.4s;
+      }
+
+      .food-type {
+        flex: 1 1 45%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .about-wrapper {
+        flex-direction: column;
+      }
+
+      .food-type {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="navbar-container container">
+      <input type="checkbox" name="" id="">
+      <div class="hamburger-lines">
+        <span class="line line1"></span>
+        <span class="line line2"></span>
+        <span class="line line3"></span>
+      </div>
+      <ul class="menu-items">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#food">Category</a></li>
+        <li><a href="#food-menu">Menu</a></li>
+        <li><a href="#testimonials">Review</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <h1 class="logo">HUST / WSR LAB</h1>
+    </div>
+  </nav>
+
+  <section class="showcase-area" id="showcase">
+    <div class="showcase-container">
+      <h1 class="main-title" id="home">EXCELLENT COCKTAILS</h1>
+      <p>The more you drink, the better it gets.</p>
+      <a href="#food-menu" class="btn btn-primary">Menu</a>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about-wrapper container">
+      <div class="about-text">
+        <p class="small">About Us</p>
+        <h2>Automatic cocktail machine </h2>
+        <p>
+          A product that promises to redefine your bartending experiences.
+          This could be your ultimate solution when it comes to making drinks
+          for a small party or operating a small lounge.
+        </p>
+      </div>
+      <div class="about-img">
+        <img src="https://www.allrecipes.com/thmb/mB5FAONsvm2iLOBJ4I5vfL49ONI=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/102561327_3-Cocktails-on-Bar_Photo-by-Meredith-4cbb7cc1a5d3451abf298d8fef7909b9.jpg" alt="food" />
+      </div>
+    </div>
+  </section>
+
+  <section id="food">
+    <h2>SETUP OPTIONS</h2>
+    <div class="food-container container">
+      <div class="food-type fruite">
+        <div class="img-container">
+          <img src="https://www.simplyrecipes.com/thmb/hcaFbOTZJQ36f56oFjtYn6E4gtQ=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2020__01__Old-Fashioned-Cocktail-LEAD-5-1024x681-aa81a798a156453d80d1f7d41de893ff.jpg" />
+          <div class="img-content">
+            <h3>INGREDIENTS SETUP</h3>
+            <a href="ingre.html" class="btn btn-primary" target="blank">setup</a>
+          </div>
+        </div>
+      </div>
+      <div class="food-type vegetable">
+        <div class="img-container">
+          <img src="https://images.food52.com/zaX70nqO508rQYuL_nHDNyE5G4E=/1008x672/filters:format(webp)/c81a3734-2f0c-4c75-b057-544f2a690f04--2021-0603_martini_3x2_julia-gartland_316.jpg" alt="error" />
+          <div class="img-content">
+            <h3>COCKTAILS INFO</h3>
+            <a href="info.html" class="btn btn-primary" target="blank">setup</a>
+          </div>
+        </div>
+      </div>
+      <div class="food-type grin">
+        <div class="img-container">
+          <img src="https://www.thespruceeats.com/thmb/xJ8zX9INXMArnn0yUVBYpVgdeFc=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-highball-cocktail-recipe-761448-hero-02-f33520a9f6394878a6975da514613142.jpg" alt="error" />
+          <div class="img-content">
+            <h3>RECIPE</h3>
+            <a href="recipe.html" class="btn btn-primary" target="blank">setup</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <h2>Cocktail machine &copy; all rights reserved</h2>
+  </footer>
+
+  <!-- Smooth Scrolling JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-KyZXEAg3QhqLMpG8r+Knujsl7/8hzlbIN5aL7kC5Z5k=" crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      // Add smooth scrolling to all links
+      $("a").on("click", function (event) {
+        // Make sure this.hash has a value before overriding default behavior
+        if (this.hash !== "") {
+          // Prevent default anchor click behavior
+          event.preventDefault();
+
+          // Store hash
+          var hash = this.hash;
+
+          // Using jQuery's animate() method to add smooth page scroll
+          // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+          $("html, body").animate(
+            {
+              scrollTop: $(hash).offset().top,
+            },
+            800,
+            function () {
+              // Add hash (#) to URL when done scrolling (default click behavior)
+              window.location.hash = hash;
+            }
+          );
+        } // End if
+      });
+    });
+  </script>
+</body>
+
+</html>

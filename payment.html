@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | QR code component</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: blue;
+      }
+      body {
+        background-color: rgb(53, 18, 53);
+      }
+      .container {
+        background-color: white;
+        border: 2x solid red;
+        display: block;
+        height: 500px;
+        width: 300px;
+        margin: auto;
+        margin-top: 50px;
+        padding: 20px;
+        border-radius: 25px;
+      }
+      .box {
+        background-color: blue;
+        
+        height: 280px;
+        width: 280px;
+        border-radius: 25px;
+        margin-left: 10px;
+        margin-top: 10px;
+      }
+      .code {
+        width: 100%;
+        height: 100%;
+        border-radius: 25px;
+      }
+      .me{
+        display: inline-block;
+        margin: auto;
+        height: 50px;
+        width: 50px;
+
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="box">
+        <img  class="code" src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Qrcode_wikipedia.jpg" alt="Qr code image" />
+        <br/>
+        <center><img src="https://i.pinimg.com/564x/0e/33/49/0e3349ab85ae5ebf604df3cb380f9c8f.jpg" alt="My bitmoji image" class="me"> 
+        <h3 class="why"></h3>Tên tài khoản: DO NHAT MINH</center></h3>
+        <h3 class="why"></h3>STK: 12345678969</center></h3>
+        <br/>
+        <p>
+            <div id="paymentPopup" style="display: none;">
+                <div id="totalAmount"</center></div>
+            </div>
+        </p>
+      </div>
+    </div>
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Janak Prajapati</a>.
+    </div>
+  </body>
+</html>
+<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+<script src="js.js"></script>
+<script>
+        document.getElementById("paymentPopup").style.display = "block";
+       
+        var totalAmountRef = database.ref("receipt/total");
+
+        totalAmountRef.once("value", function(snapshot) {
+            var totalAmount = snapshot.val();
+            // Hiển thị số tiền cần trả
+            document.getElementById("totalAmount").innerText = "Total amount: " + totalAmount*50000 + " VND";
+
+           
+        });
+
+
+</script>
+<script>
+
+    // Get a reference to the database service
+    const database2 = firebase.database();
+    
+    // Constantly listen to changes in the database
+    database2.ref('PayOK').on('value', (snapshot) => {
+      const c = snapshot.val();
+      if (c === 1) {
+        // Redirect to mainmenu.html if c is equal to 0
+       database.ref("/").update({
+           "c": 1
+         })
+        .then(() => {
+            // Redirect to another UI after database update
+            window.location.href = "waiting.html"; // Replace with the URL of your other UI
+        })
+        .catch((error) => {
+           console.error("Error updating database: ", error);
+        });
+      }
+    });
+    </script>

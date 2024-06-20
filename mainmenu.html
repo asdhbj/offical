@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Restaurant</title>
+    <link rel="stylesheet" href="css.css" />
+    <style>
+        .submit-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container container">
+            <input type="checkbox" name="" id="">
+            <div class="hamburger-lines">
+                <span class="line line1"></span>
+                <span class="line line2"></span>
+                <span class="line line3"></span>
+            </div>
+            <ul class="menu-items">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#food">Category</a></li>
+                <li><a href="#food-menu">Menu</a></li>
+                <li><a href="#testimonials">Review</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <h1 class="logo">HUST / WSR LAB</h1>
+        </div>
+    </nav>
+    <section class="showcase-area" id="showcase">
+        <div class="showcase-container">
+            <h1 class="main-title" id="home">EXCELLENT COCKTAILS</h1>
+            <p>The more you drink, the better it gets.</p>
+            <a href="#food-menu" class="btn btn-primary">Menu</a>
+        </div>
+    </section>
+    <section id="about">
+        <div class="about-wrapper container">
+            <div class="about-text">
+                <p class="small">About Us</p>
+                <h2>Automatic cocktail machine </h2>
+                <p>A product that promises to redefine your bartending experiences. This could be your ultimate solution when it comes to making drinks for a small party or operating a small lounge.</p>
+            </div>
+            <div class="about-img">
+                <img src="https://www.allrecipes.com/thmb/mB5FAONsvm2iLOBJ4I5vfL49ONI=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/102561327_3-Cocktails-on-Bar_Photo-by-Meredith-4cbb7cc1a5d3451abf298d8fef7909b9.jpg" alt="food" />
+            </div>
+        </div>
+    </section>
+    <section id="food">
+        <h2>Types of cocktail</h2>
+        <div class="food-container container">
+            <div class="food-type fruite">
+                <div class="img-container">
+                    <img src="https://www.simplyrecipes.com/thmb/hcaFbOTZJQ36f56oFjtYn6E4gtQ=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__simply_recipes__uploads__2020__01__Old-Fashioned-Cocktail-LEAD-5-1024x681-aa81a798a156453d80d1f7d41de893ff.jpg" />
+                    <div class="img-content">
+                        <h3>OLD FASHIONED</h3>
+                        <a href="https://en.wikipedia.org/wiki/Old_fashioned_(cocktail)" class="btn btn-primary" target="blank">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="food-type vegetable">
+                <div class="img-container">
+                    <img src="https://images.food52.com/zaX70nqO508rQYuL_nHDNyE5G4E=/1008x672/filters:format(webp)/c81a3734-2f0c-4c75-b057-544f2a690f04--2021-0603_martini_3x2_julia-gartland_316.jpg" alt="error" />
+                    <div class="img-content">
+                        <h3>MARTINI</h3>
+                        <a href="https://vi.wikipedia.org/wiki/Martini_(cocktail)#:~:text=Martini%20l%C3%A0%20m%E1%BB%99t%20m%C3%B3n%20cocktail,h%E1%BB%97n%20h%E1%BB%A3p%20n%E1%BB%95i%20ti%E1%BA%BFng%20nh%E1%BA%A5t.&text=Th%E1%BA%B3ng%3A%20%C4%90%E1%BB%95%20t%E1%BA%A5t%20c%E1%BA%A3%20th%C3%A0nh,h%E1%BB%A7n%20h%E1%BB%A3p%20v%E1%BB%9Bi%20%C4%91%C3%A1%20vi%C3%AAn." class="btn btn-primary" target="blank">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="food-type grin">
+                <div class="img-container">
+                    <img src="https://www.thespruceeats.com/thmb/xJ8zX9INXMArnn0yUVBYpVgdeFc=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/classic-highball-cocktail-recipe-761448-hero-02-f33520a9f6394878a6975da514613142.jpg" alt="error" />
+                    <div class="img-content">
+                        <h3>HIGHBALL</h3>
+                        <a href="https://vi.wikipedia.org/wiki/Highball#:~:text=Highball%20l%C3%A0%20m%E1%BB%99t%20th%E1%BB%A9c%20u%E1%BB%91ng,th%E1%BB%A7y%20tinh%20ho%E1%BA%B7c%20ly%20Collins." class="btn btn-primary" target="blank">learn more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="food-menu">
+        <h2 class="food-menu-heading">Drinks Menu</h2>
+        <div class="food-menu-container container" id="food-menu-container">
+            <!-- Menu items will be dynamically loaded here -->
+        </div>
+        <div class="submit-button-container">
+            <button type="button" id="guestSubmit" class="btn btn1-primary">Order</button>
+        </div>
+        <br>
+    </section>
+    <section id="testimonials">
+        <h2 class="testimonial-title">What Our Customers Say</h2>
+        <div class="testimonial-container container">
+            <div class="testimonial-box">
+                <div class="customer-detail">
+                    <div class="customer-photo">
+                        <img src="https://static.independent.co.uk/s3fs-public/thumbnails/image/2020/06/05/13/Marcus-Rashford.jpg?quality=75&width=1250&crop=3%3A2%2Csmart&auto=webp" alt="" />
+                        <p class="customer-name">Marcus Grabfood</p>
+                    </div>
+                </div>
+                <div class="star-rating">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                </div>
+                <p class="testimonial-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit voluptas cupiditate aspernatur odit doloribus non.</p>
+            </div>
+            <div class="testimonial-box">
+                <div class="customer-detail">
+                    <div class="customer-photo">
+                        <img src="https://images.toplist.vn/images/800px/songoku-dragon-balls-tan-gai-bang-skill-ngay-tho-vo-so-toi-73562.jpg" alt="" />
+                        <p class="customer-name">Son Goku</p>
+                    </div>
+                </div>
+                <div class="star-rating">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                </div>
+                <p class="testimonial-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit voluptas cupiditate aspernatur odit doloribus non.</p>
+            </div>
+            <div class="testimonial-box">
+                <div class="customer-detail">
+                    <div class="customer-photo">
+                        <img src="https://i.postimg.cc/1XvYM67V/restraunt2.jpg" alt="" />
+                        <p class="customer-name">Stewart Dan</p>
+                    </div>
+                </div>
+                <div class="star-rating">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                </div>
+                <p class="testimonial-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit voluptas cupiditate aspernatur odit doloribus non.</p>
+            </div>
+            <div class="testimonial-box">
+                <div class="customer-detail">
+                    <div class="customer-photo">
+                        <img src="https://i.postimg.cc/1XvYM67V/restraunt2.jpg" alt="" />
+                        <p class="customer-name">Lucas Vin</p>
+                    </div>
+                </div>
+                <div class="star-rating">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                </div>
+                <p class="testimonial-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit voluptas cupiditate aspernatur odit doloribus non.</p>
+            </div>
+        </div>
+    </section>
+    <section id="contact">
+        <div class="contact-container container">
+            <div class="contact-img">
+                <img src="https://i.postimg.cc/1XvYM67V/restraunt2.jpg" alt="" />
+            </div>
+            <div class="form-container">
+                <h2>Contact Us</h2>
+                <input type="text" placeholder="Full Name" class="contact-input">
+                <input type="email" placeholder="Email" class="contact-input">
+                <textarea name="message" placeholder="Message" rows="4" class="contact-input"></textarea>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </section>
+    <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+<script src="js.js"></script>
+    <script>
+      
+
+        // Fetch food menu items from Firebase and display them
+        database.ref('products').once('value').then(function (snapshot) {
+            var menuContainer = document.getElementById('food-menu-container');
+            menuContainer.innerHTML = ''; // Clear any existing content
+            var counter = 1; // To generate unique IDs for input boxes
+            snapshot.forEach(function (childSnapshot) {
+                var item = childSnapshot.val();
+                var menuItem = document.createElement('div');
+                menuItem.classList.add('food-menu-item');
+                menuItem.innerHTML = `
+                    <div class="food-img">
+                        <img src="${item.img}" alt="${item.name}">
+                    </div>
+                    <div class="food-description">
+                        <h2 class="food-title">${item.name}</h2>
+                        <p>${item.description}</p>
+                        <p class="food-price">Price: ${item.price} VND</p>
+                        <input type="number" id="c${counter}" min="0" max="10">
+                    </div>
+                `;
+                menuContainer.appendChild(menuItem);
+                counter++;
+            });
+        });
+
+        // Handle submit button click event
+        document.getElementById('guestSubmit').addEventListener('click', function() {
+            var updates = {};
+            var receiptUpdates = {};
+            var counter = 1;
+            var inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(function(input) {
+                var value = parseInt(input.value, 10); // Convert input value to number
+                if (!isNaN(value)) {
+                    updates['c' + counter] = value;
+                    receiptUpdates['receipt/c' + counter] = value;
+                } else {
+                    updates['c' + counter] = 0; // Default to 0 if the value is not a number
+                    receiptUpdates['receipt/c' + counter] = 0;
+                }
+                counter++;
+            });
+            database.ref().update(updates).then(function() {
+                return database.ref().update(receiptUpdates);
+            }).then(function() {
+                window.location.href = 'receipt.html';
+            });
+        });
+    </script>
+</body>
+</html>
