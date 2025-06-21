@@ -14,14 +14,14 @@
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: "AIzaSyBOVKZdNqbT59DQ5XX_EMz5rKieFMpz4II",
-    authDomain: "newck-77529.firebaseapp.com",
-    databaseURL: "https://newck-77529-default-rtdb.asia-southeast1.firebasedatabase.app/",
-    projectId: "newck-77529",
-    storageBucket: "newck-77529.appspot.com",
-    messagingSenderId: "27644171586",
-    appId: "1:27644171586:web:c0dedc5cacbe92dcb124db",
-    measurementId: "G-TQM2CXTY6Y"
+    apiKey: "AIzaSyBpM3jt7iqs8EQmMqtIEnL7RyMxuy22gIc",
+  authDomain: "houkoku-ef667.firebaseapp.com",
+    databaseURL: "https://houkoku-ef667-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    projectId: "houkoku-ef667",
+  storageBucket: "houkoku-ef667.firebasestorage.app",
+  messagingSenderId: "753966793472",
+  appId: "1:753966793472:web:e7b9157e30b448fcc369e5",
+  measurementId: "G-R4Q0P418E6"
 };
 
 firebase.database().goOnline()
